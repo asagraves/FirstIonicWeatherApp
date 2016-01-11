@@ -27,7 +27,9 @@
       <ion-header-bar class="bar-stable">
         <h1 class="title">Ionic Blank Starter</h1>
       </ion-header-bar>
-      <ion-content>
+      <ion-content ng-controller="weatherCtrl as weather">
+        <h1>{{weather.temp}}°F</h1>
+        <img src="http://placehold.it/350x150">
       </ion-content>
     </ion-pane>
   </body>

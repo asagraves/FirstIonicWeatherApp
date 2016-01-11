@@ -22,3 +22,9 @@ angular.module('starter', ['ionic'])
     }
   });
 })
+
+.controller('weatherCtrl', function(){
+  this.temp = 67;
+})
+
+
