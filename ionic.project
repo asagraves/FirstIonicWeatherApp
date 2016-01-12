@@ -1,4 +1,10 @@
 {
   "name": "FirstIonicWeatherApp",
-  "app_id": ""
+  "app_id": "",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "https://api.forecast.io"
+    }
+  ]
 }

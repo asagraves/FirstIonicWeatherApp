@@ -1,9 +1,10 @@
 // Ionic Starter App
+  
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic', 'angular-skycons'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -23,8 +24,56 @@ angular.module('starter', ['ionic'])
   });
 })
 
-.controller('weatherCtrl', function(){
-  this.temp = 67;
-})
+.controller('weatherCtrl', function($http){
+  var weather = this;
+
+  navigator.geolocation.getCurrentPosition(function (geopos){
+    var lat = geopos.coords.latitude;
+    var long = geopos.coords.longitude;
+    var apikey = "47c1ab45a4a2f5d791799d2b9938fc8b";
+    var url = '/api/forecast/' + apikey + '/' + lat + ',' + long;
+
+    $http.get(url).then(function (res) {
+      console.log(res);
+      // debugger;
+      weather.temp = res.data.currently.temperature;
+  });
+
+      /*
+          This example is over simplified to demonstrate the relationship
+          between the 'controller' and the 'template' with regard to loading
+          the 'icon' value. Hopefully, you will be loading your controller with
+          data from an actual API response. :)
+      */
+      weather.CurrentWeather = {
+          forecast: {
+              icon: res.currently.icon,
+              iconSize: 100,
+              color: "blue"
+          }
+      };
+
+});
+
+weather.temp = '--';
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

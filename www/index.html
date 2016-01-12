@@ -19,6 +19,8 @@
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
+    <script src="lib/skycons/skycons.js"></script>
+     <script src="lib/angular-skycons/angular-skycons.min.js"></script>
     <script src="js/app.js"></script>
   </head>
   <body ng-app="starter">
@@ -29,8 +31,18 @@
       </ion-header-bar>
       <ion-content ng-controller="weatherCtrl as weather">
         <h1>{{weather.temp}}°F</h1>
-        <img src="http://placehold.it/350x150">
+        <skycon icon="weather.CurrentWeather.forecast.icon" size="weather.CurrentWeather.forecast.iconSize"></skycon>
       </ion-content>
     </ion-pane>
+
+
+
+
   </body>
 </html>
+
+
+
+
+
+
