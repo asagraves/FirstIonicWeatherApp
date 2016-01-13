@@ -65,12 +65,21 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     return weather;
     })
     .then(function (weather){
+      var key = weather.data.location.city + ", " + weather.data.location.state;
+      var value = weather.data.current_observation.station_id;
+      var history = JSON.parse(localStorage.getItem('searchHistory')) || {};
+      if (history.hasOwnProperty(key) === false) {
+        history[key] = value;
+        localStorage.setItem('searchHistory', JSON.stringify(history));
+      }
 
       // console.log("geoLookupData", geoLookupData);
-      localStorage.setItem ('searchHistory', 'array of searches');
-        weather.data.current_observation.station_id;
+      // localStorage.setItem ('searchHistory', 'array of searches');
+      //   weather.data.current_observation.station_id;
 
     });
+
+    
 
 
     
@@ -86,13 +95,6 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
 
 
-
-
-// var history -JSON.parse(localSorage.getItem('searchHistory')) || [];
-// if (history.indexOf(res.data.current.current_observation.station_id) ===-1) {
-//   history.push(res.data.current_observation.station_id);
-//   localStorage.setItem('searchHistory', JSON.stringify(history));
-// }
 
 
 
