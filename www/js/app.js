@@ -26,53 +26,60 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 })
 
 .controller('weatherCtrl', function($http){
+
   var weather = this;
   var url = "http://api.wunderground.com/api/00ec06788f773d96/conditions/forecast/geolookup/q/autoip.json";
   weather.tenDay;
 
-  $http.get(url).then(function (res) {
-    console.log(res);
+  $http.get(url).then(function (geoLookupData) {
+    console.log(geoLookupData);
     // debugger;
-    var city = res.data.location.city;
-    var state = res.data.location.state;
-    var url = "http://api.wunderground.com/api/00ec06788f773d96/forecast10day/q/" + state + "/" + city + ".json";
+    var city = geoLookupData.data.location.city;
+    var state = geoLookupData.data.location.state;
+    getWeather(city,state);
+    var apikey = "47c1ab45a4a2f5d791799d2b9938fc8b";
+    });
+
+  var getWeather = function (city,state) {
+    // console.log(geoLookupData);
+    // debugger;
+    var url = "http://api.wunderground.com/api/00ec06788f773d96/conditions/forecast/geolookup/forecast10day/q/" + state + "/" + city + ".json";
     
     $http.get(url).then(function (forecast) {
       console.log("forecast", forecast);
       weather.tenDay = forecast.data.forecast.simpleforecast.forecastday;
       
       console.log("weather.tenDay", weather.tenDay)
-    navigator.geolocation.getCurrentPosition(function (geopos){
-      var lat = geopos.coords.latitude;
-      var long = geopos.coords.longitude;
-      var apikey = "47c1ab45a4a2f5d791799d2b9938fc8b";
-      });
+    });
+  }
+  weather.temp = '--';
 
 
+  weather.search = function () {
+    $http.get("http://api.wunderground.com/api/00ec06788f773d96/conditions/forecast/geolookup/q/" + weather.searchQuery + '.json')
+    .then(function (weather) {
+      console.log("weather", weather)
+    var state = weather.data.location.state;
+    var city = weather.data.location.city;
+    getWeather(city,state);
+    return weather;
+    })
+    .then(function (weather){
+
+      // console.log("geoLookupData", geoLookupData);
+      localStorage.setItem ('searchHistory', 'array of searches');
+        weather.data.current_observation.station_id;
+
+    });
 
 
-      // weather.CurrentWeather = {
-      //     forecast: {
-      //         icon: res.data.currently.icon,
-      //         iconSize: 100,
-      //         color: "blue"
-      //     }
-      // };
-  });
+    
+
+    console.log(weather.searchQuery)
+    console.log('Search!');
+  }
 });
 
-weather.temp = '--';
-
-weather.search = function () {
-  $http.get(url + weather.searchQuery + '.json') 
-  .then();
-
-
-  console.log(weather.searchQuery)
-  console.log('Search!');
-}
-
-});
 
 
 
@@ -81,8 +88,11 @@ weather.search = function () {
 
 
 
-
-
+// var history -JSON.parse(localSorage.getItem('searchHistory')) || [];
+// if (history.indexOf(res.data.current.current_observation.station_id) ===-1) {
+//   history.push(res.data.current_observation.station_id);
+//   localStorage.setItem('searchHistory', JSON.stringify(history));
+// }
 
 
 

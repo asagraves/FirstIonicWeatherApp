@@ -40,8 +40,8 @@
         <h1>{{weather.temp}}°F</h1>
         <div class="row">
           <div ng-repeat="weather in weather.tenDay | limitTo: 5" class="col">
-            <img ng-src="{{ weather.icon_url }}">
-          {{ weather.high.fahrenheit }}
+            <img ng-src="{{ weather.icon_url }}">High: {{ weather.high.fahrenheit }}
+              Low: {{ weather.low.fahrenheit }}
           </div>
         </div>
       </ion-content>
