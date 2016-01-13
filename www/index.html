@@ -38,7 +38,12 @@
 
       <ion-content>
         <h1>{{weather.temp}}°F</h1>
-        <skycon icon="weather.CurrentWeather.forecast.icon" size="weather.CurrentWeather.forecast.iconSize"></skycon>
+        <div class="row">
+          <div ng-repeat="weather in weather.tenDay | limitTo: 5" class="col">
+            <img ng-src="{{ weather.icon_url }}">
+          {{ weather.high.fahrenheit }}
+          </div>
+        </div>
       </ion-content>
     </ion-pane>
 

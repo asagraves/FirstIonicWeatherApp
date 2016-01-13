@@ -27,7 +27,8 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
 .controller('weatherCtrl', function($http){
   var weather = this;
-  var url = "http://api.wunderground.com/api/00ec06788f773d96/conditions/forcast/geolookup/q/autoip.json";
+  var url = "http://api.wunderground.com/api/00ec06788f773d96/conditions/forecast/geolookup/q/autoip.json";
+  weather.tenDay;
 
   $http.get(url).then(function (res) {
     console.log(res);
@@ -35,16 +36,18 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     var city = res.data.location.city;
     var state = res.data.location.state;
     var url = "http://api.wunderground.com/api/00ec06788f773d96/forecast10day/q/" + state + "/" + city + ".json";
+    
     $http.get(url).then(function (forecast) {
       console.log("forecast", forecast);
-
+      weather.tenDay = forecast.data.forecast.simpleforecast.forecastday;
+      
+      console.log("weather.tenDay", weather.tenDay)
     navigator.geolocation.getCurrentPosition(function (geopos){
       var lat = geopos.coords.latitude;
       var long = geopos.coords.longitude;
       var apikey = "47c1ab45a4a2f5d791799d2b9938fc8b";
-
-
       });
+
 
 
 
@@ -62,9 +65,10 @@ weather.temp = '--';
 
 weather.search = function () {
   $http.get(url + weather.searchQuery + '.json') 
-  .then(forecast);
+  .then();
 
 
+  console.log(weather.searchQuery)
   console.log('Search!');
 }
 
