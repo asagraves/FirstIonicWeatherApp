@@ -25,18 +25,18 @@
   <body ng-app="starter">
 
 
-    <ion-pane>
+    <ion-pane ng-controller="weatherCtrl as weather">
       <div class="bar bar-header item-input-inset">
         <label class="item-input-wrapper">
           <i class="icon ion-ios-search placeholder-icon"></i>
-          <input type="search" placeholder="Search">
+          <input type="search" placeholder="Search" ng-model="weather.searchQuery">
         </label>
-        <button class="button button-clear">
-          Cancel
+        <button class="button button-royal" ng-click="weather.search()">
+          Search
         </button>
       </div>
-      
-      <ion-content ng-controller="weatherCtrl as weather">
+
+      <ion-content>
         <h1>{{weather.temp}}°F</h1>
         <skycon icon="weather.CurrentWeather.forecast.icon" size="weather.CurrentWeather.forecast.iconSize"></skycon>
       </ion-content>

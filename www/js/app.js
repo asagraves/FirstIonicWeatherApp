@@ -27,7 +27,7 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
 .controller('weatherCtrl', function($http){
   var weather = this;
-  var url = "http://api.wunderground.com/api/00ec06788f773d96/geolookup/q/autoip.json";
+  var url = "http://api.wunderground.com/api/00ec06788f773d96/conditions/forcast/geolookup/q/autoip.json";
 
   $http.get(url).then(function (res) {
     console.log(res);
@@ -60,6 +60,13 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
 weather.temp = '--';
 
+weather.search = function () {
+  $http.get(url + weather.searchQuery + '.json') 
+  .then(forecast);
+
+
+  console.log('Search!');
+}
 
 });
 
