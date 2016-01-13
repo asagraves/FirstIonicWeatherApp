@@ -22,10 +22,12 @@ angular.module('starter', ['ionic', 'angular-skycons'])
       StatusBar.styleDefault();
     }
   });
+
 })
 
 .controller('weatherCtrl', function($http){
   var weather = this;
+
 
   navigator.geolocation.getCurrentPosition(function (geopos){
     var lat = geopos.coords.latitude;
@@ -37,25 +39,18 @@ angular.module('starter', ['ionic', 'angular-skycons'])
       console.log(res);
       // debugger;
       weather.temp = res.data.currently.temperature;
-  });
-
-      /*
-          This example is over simplified to demonstrate the relationship
-          between the 'controller' and the 'template' with regard to loading
-          the 'icon' value. Hopefully, you will be loading your controller with
-          data from an actual API response. :)
-      */
       weather.CurrentWeather = {
           forecast: {
-              icon: res.currently.icon,
+              icon: res.data.currently.icon,
               iconSize: 100,
               color: "blue"
           }
       };
-
+  });
 });
 
 weather.temp = '--';
+
 
 });
 
