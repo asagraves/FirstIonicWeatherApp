@@ -27,25 +27,34 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
 .controller('weatherCtrl', function($http){
   var weather = this;
+  var url = "http://api.wunderground.com/api/00ec06788f773d96/geolookup/q/autoip.json";
+
+  $http.get(url).then(function (res) {
+    console.log(res);
+    // debugger;
+    var city = res.data.location.city;
+    var state = res.data.location.state;
+    var url = "http://api.wunderground.com/api/00ec06788f773d96/forecast10day/q/" + state + "/" + city + ".json";
+    $http.get(url).then(function (forecast) {
+      console.log("forecast", forecast);
+
+    navigator.geolocation.getCurrentPosition(function (geopos){
+      var lat = geopos.coords.latitude;
+      var long = geopos.coords.longitude;
+      var apikey = "47c1ab45a4a2f5d791799d2b9938fc8b";
 
 
-  navigator.geolocation.getCurrentPosition(function (geopos){
-    var lat = geopos.coords.latitude;
-    var long = geopos.coords.longitude;
-    var apikey = "47c1ab45a4a2f5d791799d2b9938fc8b";
-    var url = '/api/forecast/' + apikey + '/' + lat + ',' + long;
+      });
 
-    $http.get(url).then(function (res) {
-      console.log(res);
-      // debugger;
-      weather.temp = res.data.currently.temperature;
-      weather.CurrentWeather = {
-          forecast: {
-              icon: res.data.currently.icon,
-              iconSize: 100,
-              color: "blue"
-          }
-      };
+
+
+      // weather.CurrentWeather = {
+      //     forecast: {
+      //         icon: res.data.currently.icon,
+      //         iconSize: 100,
+      //         color: "blue"
+      //     }
+      // };
   });
 });
 
