@@ -26,7 +26,7 @@
 
 
     <ion-pane ng-controller="weatherCtrl as weather">
-      <div class="bar bar-header item-input-inset">
+      <form ng-submit=weather.search() class="bar bar-header item-input-inset">
         <label class="item-input-wrapper">
           <i class="icon ion-ios-search placeholder-icon"></i>
           <input type="search" placeholder="Search" ng-model="weather.searchQuery">
@@ -34,7 +34,7 @@
         <button class="button button-royal" ng-click="weather.search()">
           Search
         </button>
-      </div>
+      </form>
 
       <ion-content>
         <h1>{{weather.temp}}°F</h1>
@@ -54,7 +54,7 @@
 </html>
 
 
-<!-- make div form -->
+
 
 
 
